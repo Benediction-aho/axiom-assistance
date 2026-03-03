@@ -74,4 +74,11 @@ cron.schedule('0 */6 * * *', async () => {
   } catch (e) { console.error('Auto-post error:', e.message); }
 });
 
-app.listen(process.env.PORT || 3000, () => console.log('⚡ AXIOM online'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`⚡ AXIOM online on port ${PORT}`);
+});
+app.use((req, res, next) => {
+  console.log(`📨 ${req.method} ${req.path}`);
+  next();
+});
